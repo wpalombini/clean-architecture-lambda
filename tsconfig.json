@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@domain/*": ["src/framework/domain/*"],
+      "@infra/*": ["src/framework/infra/*"]
+    }
+  },
+  "exclude": ["./node_modules", "jest.*.ts"]
+}

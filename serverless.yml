@@ -1,0 +1,24 @@
+service: clean-architecture-lambda
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  region: ap-southeast-2
+  runtime: nodejs14.x
+  environment:
+    ENVIRONMENT: ${env:ENVIRONMENT}
+
+functions:
+  main:
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
