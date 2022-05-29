@@ -7,8 +7,8 @@ export class OrderRepository implements IOrderRepository {
   public getAll(): Promise<Order[]> {
     return new Promise<Order[]>((resolve, reject) => {
       resolve([
-        { id: '1', description: 'desc 1' },
-        { id: '2', description: 'desc 2' },
+        { id: '1', description: 'desc 1', createdAt: new Date(Date.now() - 10000) },
+        { id: '2', description: 'desc 2', createdAt: new Date(Date.now() - 5000) },
       ] as Order[]);
       // reject(new Error('error X when fetching data'));
     });

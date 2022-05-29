@@ -4,8 +4,29 @@ import { OrderRepository } from '@infra/repositories/order.repository';
 
 describe('OrderRepository', () => {
   let orderRep: IOrderRepository;
+
+  let now: number;
+  let realDate: DateConstructor;
+
   beforeEach(() => {
     orderRep = new OrderRepository();
+
+    now = Date.now();
+    realDate = Date;
+
+    const currentDate = new Date(now);
+    global.Date = class extends Date {
+      constructor(date) {
+        if (date) return super(date) as any;
+
+        return currentDate;
+      }
+    } as any;
+  });
+
+  afterEach(() => {
+    // cleanup
+    global.Date = realDate;
   });
 
   describe('getAll', () => {
@@ -18,36 +39,13 @@ describe('OrderRepository', () => {
 
       // Assert
       expect(result).toEqual<Order[]>([
-        { id: '1', description: 'desc 1' },
-        { id: '2', description: 'desc 2' },
+        { id: '1', description: 'desc 1', createdAt: new Date(now - 10000) },
+        { id: '2', description: 'desc 2', createdAt: new Date(now - 5000) },
       ] as Order[]);
     });
   });
 
   describe('create', () => {
-    let now: number;
-    let realDate: DateConstructor;
-
-    beforeEach(() => {
-      now = Date.now();
-      realDate = Date;
-
-      const currentDate = new Date(now);
-
-      global.Date = class extends Date {
-        constructor(date) {
-          if (date) return super(date) as any;
-
-          return currentDate;
-        }
-      } as any;
-    });
-
-    afterEach(() => {
-      // cleanup
-      global.Date = realDate;
-    });
-
     test('should create an Order successfully', async () => {
       // Arrange
       const order: Order = new Order();
