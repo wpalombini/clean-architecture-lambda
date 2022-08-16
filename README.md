@@ -10,13 +10,34 @@ Stack used:
 
 You in order to run it you need to ensure you have serverless installed globally and then run:
 
-```
-npm install
-npx serverless offline
+### Commands:
+
+- install dependencies:
+
+```bash
+$ npm install
 ```
 
-To run the tests:
+- run it locally in dev mode:
+
+```bash
+$ npx serverless offline
+```
+
+- run it locally in staging mode:
+
+```bash
+$ npx serverless offline --stage staging
+```
+
+- deploy it to aws:
+
+```bash
+$ npx serverless deploy --stage prod
+```
+
+- To run the tests:
 
 ```
-npm test
+$ npm test
 ```
